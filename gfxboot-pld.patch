@@ -1,0 +1,20 @@
+--- gfxboot/Makefile.orig	2003-10-31 13:26:55.251660248 +0100
++++ gfxboot/Makefile	2003-10-31 13:26:26.655007600 +0100
+@@ -1,7 +1,7 @@
+ all:	bin2c mkbootmsg bincode getx11font addblack
+ 
+ getx11font: getx11font.c
+-	gcc -Wall -O2 -fomit-frame-pointer -L/usr/X11/lib $< -lX11 -o $@
++	gcc -Wall -O2 -fomit-frame-pointer -L/usr/X11R6/lib $< -lX11 -o $@
+ 
+ mkbootmsg: mkbootmsg.c bincode.h vocabulary.h
+ 	gcc -Wall -O2 -fomit-frame-pointer $< -o $@
+@@ -25,7 +25,7 @@
+ 	./mk_vocabulary -c >$@
+ 
+ install: all
+-	install -m 755 -s mkbootmsg getx11font /usr/sbin
++	install -m 755 -s mkbootmsg getx11font $(DESTDIR)/usr/sbin
+ 
+ clean:
+ 	@rm -f mkbootmsg bincode getx11font addblack bincode.h bin2c *.lst vocabulary.inc vocabulary.h *~
