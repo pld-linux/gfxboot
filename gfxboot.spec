@@ -14,13 +14,13 @@
 Name:		gfxboot
 Copyright:	Copyright (c) 1999 SuSE GmbH
 Group:		Applications/System
-Autoreqprov:	on
 Summary:	Graphical boot logo for lilo and syslinux.
 Version:	1.4
 Release:	1
 URL:		http://www.gamers.org/~quinet/lilo/
 Source0:	http://members.optusnet.com.au/rkelsen/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-pld.patch
+AutoReqProv:	on
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
