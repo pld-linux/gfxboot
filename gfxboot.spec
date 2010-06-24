@@ -13,15 +13,15 @@
 
 Name:		gfxboot
 Copyright:	Copyright (c) 1999 SuSE GmbH
-Group:		Applications/System
-Summary:	Graphical boot logo for lilo and syslinux.
-Version:	1.4
+Summary:	Graphical boot logo for lilo and syslinux
+Version:	4.2.1
 Release:	1
+Group:		Applications/System
 URL:		http://www.gamers.org/~quinet/lilo/
-Source0:	http://members.optusnet.com.au/rkelsen/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-pld.patch
-AutoReqProv:	on
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	d37d8bbb10df63723a895203e4289dd0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+AutoReqProv:	on
 
 %description
 Here you find the graphical boot logo. Suitable for both lilo and
@@ -29,11 +29,11 @@ syslinux.
 
 SuSE series: ap
 
-%package -n gfxboot-devel
-Summary:	Tools for creating a graphical boot logo.
+%package themes
+Summary:	Tools for creating a graphical boot logo
 Group:		Applications/System
 
-%description -n gfxboot-devel
+%description themes
 Here you find the necessary programs to create your own graphical boot
 logo. The logo can be used with lilo and syslinux.
 
@@ -41,35 +41,29 @@ SuSE series: ap
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__make}
-./mkbootmsg -c suselogo.config suselogo
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/gfxboot
-install -d -m 755 $RPM_BUILD_ROOT/boot
-install -m 755 -s mkbootmsg getx11font $RPM_BUILD_ROOT%{_sbindir}
-install -m 644 suselogo $RPM_BUILD_ROOT/boot/message
-install -m 644 fixed_10x20 suselogo{,.config,.pcx} $RPM_BUILD_ROOT%{_datadir}/gfxboot
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-/boot/message
-%doc README
+%attr(755,root,root) %{_sbindir}/gfxboot
+%attr(755,root,root) %{_sbindir}/gfxboot-compile
+%attr(755,root,root) %{_sbindir}/gfxboot-font
+%attr(755,root,root) %{_sbindir}/gfxtest
 
-%files -n gfxboot-devel
+%files themes
 %defattr(644,root,root,755)
-%dir %{_datadir}/gfxboot
-%attr(755,root,root) %{_sbindir}/mkbootmsg
-%attr(755,root,root) %{_sbindir}/getx11font
-%{_datadir}/gfxboot/suselogo
-%{_datadir}/gfxboot/suselogo.config
-%{_datadir}/gfxboot/suselogo.pcx
-%{_datadir}/gfxboot/fixed_10x20
+%{_sysconfdir}/bootsplash/themes/SLED
+%{_sysconfdir}/bootsplash/themes/SLES
+%{_sysconfdir}/bootsplash/themes/openSUSE
+%{_sysconfdir}/bootsplash/themes/upstream
