@@ -1,33 +1,21 @@
-#
-# spec file for package gfxboot (Version 1.4)
-#
-# Copyright  (c)  2001  SuSE GmbH  Nuernberg, Germany.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
-# please send bugfixes or comments to feedback@suse.de.
-#
-
-# neededforbuild  nasm xdevel xf86 xshared
-# usedforbuild    aaa_base aaa_dir autoconf automake base bash bindutil binutils bison bzip compress cpio cpp cracklib cyrus-sasl db devs diffutils e2fsprogs file fileutils findutils flex gawk gcc gdbm gdbm-devel gettext glibc glibc-devel gpm gppshare grep groff gzip kbd less libtool libz m4 make man mktemp modutils nasm ncurses ncurses-devel net-tools netcfg pam pam-devel patch perl ps rcs readline rpm sendmail sh-utils shadow strace syslogd sysvinit texinfo textutils timezone unzip util-linux vim xdevel xf86 xshared
-
-Name:		gfxboot
-Copyright:	Copyright (c) 1999 SuSE GmbH
 Summary:	Graphical boot logo for lilo and syslinux
+Name:		gfxboot
 Version:	4.2.1
 Release:	1
+License:	GPL v2
 Group:		Applications/System
-URL:		http://www.gamers.org/~quinet/lilo/
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	d37d8bbb10df63723a895203e4289dd0
+URL:		http://www.gamers.org/~quinet/lilo/
+BuildRequires:	freetype-devel
+BuildRequires:	nasm
+BuildRequires:	perl-base
+ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-AutoReqProv:	on
 
 %description
 Here you find the graphical boot logo. Suitable for both lilo and
 syslinux.
-
-SuSE series: ap
 
 %package themes
 Summary:	Tools for creating a graphical boot logo
@@ -36,8 +24,6 @@ Group:		Applications/System
 %description themes
 Here you find the necessary programs to create your own graphical boot
 logo. The logo can be used with lilo and syslinux.
-
-SuSE series: ap
 
 %prep
 %setup -q
